@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom YouTube Player</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #player {
+            width: 640px;
+            height: 360px;
+        }
+    </style>
+</head>
+<body>
+    <div id="player"></div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        const videoId = 'YOUR_VIDEO_ID'; // Replace with your YouTube video ID
+
+        // Load the YouTube API asynchronously
+        function onYouTubeIframeAPIReady() {
+            const player = new YT.Player('player', {
+                height: '360',
+                width: '640',
+                videoId: videoId,
+                events: {
+                    'onReady': onPlayerReady,
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+    </script>
+
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+        // Load the YouTube API client library asynchronously
+        gapi.load('client', () => {
+            gapi.client.init({
+                discoveryDocs: ['http://localhost:3000/video/YOUR_VIDEO_ID'],
+            }).then(() => {
+                // You can perform additional actions if needed
+            });
+        });
+    </script>
+</body>
+</html>
